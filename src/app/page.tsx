@@ -121,6 +121,7 @@ export default function DataMiningApp() {
     const total = 200;
     let current = 0;
 
+    // 模拟进度条
     const interval = setInterval(() => {
       current += 20;
       setCrawlerStatus({
@@ -131,13 +132,14 @@ export default function DataMiningApp() {
 
       if (current >= total) {
         clearInterval(interval);
-        // 调用真实数据获取
-        const data = await fetchGitHubReviews(total);
-        setRawData(data);
-        setStats(calculateDataStats(data));
-        setCrawlerStatus({ status: 'completed', progress: 100, collected: total });
       }
     }, 200);
+
+    // 异步获取真实数据
+    const data = await fetchGitHubReviews(total);
+    setRawData(data);
+    setStats(calculateDataStats(data));
+    setCrawlerStatus({ status: 'completed', progress: 100, collected: total });
   }, []);
 
   // ==================== 数据预处理模块 ====================
