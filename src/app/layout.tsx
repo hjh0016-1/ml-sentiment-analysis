@@ -4,11 +4,11 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: '新应用 | 扣子编程',
-    template: '%s | 扣子编程',
+    default: '数据挖掘与机器学习实践平台',
+    template: '%s | 情感分析',
   },
   description:
-    '扣子编程是一款一站式云端 Vibe Coding 开发平台。通过对话轻松构建智能体、工作流和网站，实现从创意到上线的无缝衔接。',
+    '电商产品评论情感分析 - 展示完整的数据挖掘与机器学习工作流程，包括数据采集、预处理、传统ML、深度学习和结果对比分析。',
   keywords: [
     '扣子编程',
     'Coze Code',
