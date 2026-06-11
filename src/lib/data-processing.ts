@@ -11,7 +11,28 @@ import type {
 } from '@/types';
 
 /**
- * 生成模拟评论数据
+ * 从GitHub API获取真实数据
+ */
+export async function fetchGitHubReviews(count: number = 50): Promise<ReviewData[]> {
+  try {
+    const response = await fetch(`/api/github-data?count=${count}`);
+    const result = await response.json();
+    
+    if (result.success && result.data) {
+      return result.data;
+    }
+    
+    // 如果API获取失败，返回模拟数据
+    console.warn('GitHub API failed, using mock data');
+    return generateMockReviews(count);
+  } catch (error) {
+    console.error('Error fetching GitHub data:', error);
+    return generateMockReviews(count);
+  }
+}
+
+/**
+ * 生成模拟评论数据（备用）
  */
 export function generateMockReviews(count: number): ReviewData[] {
   const reviews: ReviewData[] = [];

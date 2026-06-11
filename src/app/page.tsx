@@ -46,6 +46,7 @@ import type {
   PredictionResult,
 } from '@/types';
 import {
+  fetchGitHubReviews,
   generateMockReviews,
   calculateDataStats,
   preprocessData,
@@ -113,10 +114,10 @@ export default function DataMiningApp() {
   const [isTraining, setIsTraining] = useState(false);
 
   // ==================== 数据爬取模块 ====================
-  const handleCrawlData = useCallback(() => {
+  const handleCrawlData = useCallback(async () => {
     setCrawlerStatus({ status: 'running', progress: 0, collected: 0 });
 
-    // 模拟爬虫进度
+    // 获取真实GitHub数据
     const total = 200;
     let current = 0;
 
@@ -130,7 +131,8 @@ export default function DataMiningApp() {
 
       if (current >= total) {
         clearInterval(interval);
-        const data = generateMockReviews(total);
+        // 调用真实数据获取
+        const data = await fetchGitHubReviews(total);
         setRawData(data);
         setStats(calculateDataStats(data));
         setCrawlerStatus({ status: 'completed', progress: 100, collected: total });
